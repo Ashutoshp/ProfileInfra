@@ -25,5 +25,6 @@ CPP_DEPS :=
 SUBDIRS := \
 src/Adaptor \
 src/Controller \
+src/ModelChecking \
 src/Utils \
 

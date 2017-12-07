@@ -21,9 +21,7 @@ using namespace std;
 
 class ReactivePlanExtraction {
 private:
-	const string m_adversary_path;
-	const string m_states_path;
-	const string m_labels_path;
+
 	const string m_tactic_suffix; // CUSTOMIZED
 	const string m_divert_str; // CUSTOMIZED
 
@@ -44,7 +42,7 @@ private:
 	set<int> get_now_states() const;
 
 public:
-	ReactivePlanExtraction(const string& adversary_file, const string& states_file, const string& label_file);
+	ReactivePlanExtraction();
 
 	Strings get_tactics_at_time(const string& time = "") const; // TODO extend it for any time
 };

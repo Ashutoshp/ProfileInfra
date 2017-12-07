@@ -7,14 +7,13 @@
 //===================================================================================
 
 #include <ReactivePlanExtraction.h>
+#include <GlobalSettings.h>
 #include <fstream>
 #include <sstream>
 #include <boost/tokenizer.hpp>
 #include <string.h>
 
-ReactivePlanExtraction::ReactivePlanExtraction(const string& adversary_file, const string& states_file,
-		const string& labels_file) : m_adversary_path(adversary_file), m_states_path(states_file),
-		m_labels_path(labels_file), m_tactic_suffix("_start"), m_divert_str("divert_") {}
+ReactivePlanExtraction::ReactivePlanExtraction() : m_tactic_suffix("_start"), m_divert_str("divert_") {}
 
 Strings ReactivePlanExtraction::get_tactics_at_time(const string& time) const {
 	// TODO expand it for database. CUSTOMIZED
@@ -23,6 +22,7 @@ Strings ReactivePlanExtraction::get_tactics_at_time(const string& time) const {
 
 	return actions;
 }
+
 /**
  * Finds the states that correspond to the current time.
  *
@@ -41,10 +41,10 @@ set<int> ReactivePlanExtraction::get_now_states() const {
 	 * <state>:(<value1>,<value2>,...)
 	 */
 	set<int> states;
-	ifstream fin(m_states_path.c_str());
+	ifstream fin(GlobalSettings::getInstance()->get_reactive_planning_states_path().c_str());
 
 	if (!fin) {
-		cout << "Could not read input file " << m_states_path << endl;
+		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_planning_states_path() << endl;
 		return states;
 	}
 
@@ -95,10 +95,10 @@ Strings ReactivePlanExtraction::get_actions(const set<int>& states) const {
 	Strings actions;
 	typedef set<string> StringSet;
 	StringSet action_set;
-	ifstream fin(m_adversary_path.c_str());
+	ifstream fin(GlobalSettings::getInstance()->get_reactive_plan_path().c_str());
 
 	if (!fin) {
-		cout << "Could not read input file " << m_adversary_path << endl;
+		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_plan_path() << endl;
 		return actions;
 	}
 
@@ -153,10 +153,10 @@ Strings ReactivePlanExtraction::get_actions(const set<int>& states) const {
 	 * 	0 is "initial", and 0 is always the first label if it appears in a row
 	 */
 	int state = -1;
-	ifstream labels(m_labels_path.c_str());
+	ifstream labels(GlobalSettings::getInstance()->get_reactive_planning_labels_path().c_str());
 
 	if (!labels) {
-		cout << "Could not read input file " << m_labels_path << endl;
+		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_planning_labels_path() << endl;
 		return actions;
 	}
 

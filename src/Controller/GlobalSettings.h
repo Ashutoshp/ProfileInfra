@@ -153,9 +153,13 @@ private:
         inline void set_problem_feature_file(const string& file) {m_problem_feature_file = file;}
 
         inline string get_reactive_plan_path() const {return m_source_directory + m_reactive_plan_dir + m_plan_file;}
+        inline string get_reactive_planning_states_path() const {return m_source_directory + m_reactive_plan_dir + m_states_file;}
+        inline string get_reactive_planning_labels_path() const {return m_source_directory + m_reactive_plan_dir + m_labels_file;}
+
         inline string get_deliberative_spec_path() const {return m_source_directory + m_deliberative_plan_dir + m_deliberative_spec_file;}
-        inline string get_deliberative_plan_path() const {return m_source_directory + m_deliberative_plan_dir + m_plan_file;}
+        inline string get_deliberative_plan_path() const {return m_source_directory + m_deliberative_plan_dir + m_plan_file;} // TODO not required for now
         inline string get_deliberative_planning_time_path() const {return m_source_directory + m_deliberative_plan_dir + m_deliberative_planning_time_file;}
+
         inline string get_hybrid_spec_path() const {return m_destination_directory + m_destination_hybrid_dir + m_model_checker_spec_file;}
         inline string get_hybrid_result_path() const {return m_destination_directory + m_destination_hybrid_dir + m_result_file;}
         inline string get_delibetaive_only_spec_path() const {return m_destination_directory + m_destination_deliberative_dir + m_model_checker_spec_file;}

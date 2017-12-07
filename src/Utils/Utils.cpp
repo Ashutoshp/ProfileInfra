@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <Utils.h>
-
+#include <string.h>
 
 
 Strings get_prefix_matching_directories(const char* path, const char* prefix) {

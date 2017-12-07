@@ -9,6 +9,7 @@
 
 #include <SpecGenerator.h>
 #include <ReactivePlanExtraction.h>
+#include <GlobalSettings.h>
 
 SpecGenerator::SpecGenerator(const string& dir): m_sample_problem_dir(dir) {
 
@@ -21,8 +22,12 @@ void SpecGenerator::generate_specs() {
 
 void SpecGenerator::generate_hybrid_spec() {
 	// Get reactive actions
+	ReactivePlanExtraction reactivePlanExtraction;
+	Strings actions = reactivePlanExtraction.get_tactics_at_time();
+
 	// Open output file
 	// Open deliberative planning specification
+	// Open template
 	// copy initial state
 	// write reactive action flags
 	// copy remaining
@@ -30,5 +35,6 @@ void SpecGenerator::generate_hybrid_spec() {
 }
 
 void SpecGenerator::generate_deliberative_spec() {
-
+	// Only initial state needs to be copied here
+	// Rest is fixed
 }
