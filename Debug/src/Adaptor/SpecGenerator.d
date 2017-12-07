@@ -1,0 +1,13 @@
+src/Adaptor/SpecGenerator.o: ../src/Adaptor/SpecGenerator.cpp \
+ /home/ashutosp/workspace/Profiling/ProfileInfra/src/Adaptor/SpecGenerator.h \
+ /home/ashutosp/workspace/Profiling/ProfileInfra/src/Adaptor/ReactivePlanExtraction.h \
+ /home/ashutosp/workspace/Profiling/ProfileInfra/src/Adaptor/Tactics.h \
+ /home/ashutosp/workspace/Profiling/ProfileInfra/src/Utils/Utils.h
+
+/home/ashutosp/workspace/Profiling/ProfileInfra/src/Adaptor/SpecGenerator.h:
+
+/home/ashutosp/workspace/Profiling/ProfileInfra/src/Adaptor/ReactivePlanExtraction.h:
+
+/home/ashutosp/workspace/Profiling/ProfileInfra/src/Adaptor/Tactics.h:
+
+/home/ashutosp/workspace/Profiling/ProfileInfra/src/Utils/Utils.h:
