@@ -16,7 +16,7 @@ SpecGenerator::SpecGenerator(const string& dir): m_sample_problem_dir(dir) {
 
 void SpecGenerator::generate_specs() {
 	generate_hybrid_spec();
-	generate_deliberative_spec()
+	generate_deliberative_spec();
 }
 
 void SpecGenerator::generate_hybrid_spec() {
