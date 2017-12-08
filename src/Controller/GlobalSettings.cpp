@@ -41,4 +41,5 @@ void GlobalSettings::debug() {
     cout << "m_result_file = " << m_result_file << endl;
     cout << "m_model_checker_spec_file = " << m_model_checker_spec_file << endl;
     cout << "m_problem_feature_file = " << m_problem_feature_file << endl;
+    cout << "m_prism_spec_env_end_tag = " << m_prism_spec_env_end_tag << endl;
 }

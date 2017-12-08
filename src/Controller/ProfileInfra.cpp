@@ -24,13 +24,14 @@ void do_settings() {
 	GlobalSettings::getInstance()->set_deliberative_planning_time_file(""); // TODO
 	GlobalSettings::getInstance()->set_destination_hybrid_dir("hybrid");
 	GlobalSettings::getInstance()->set_destination_deliberative_dir("slow");
-	GlobalSettings::getInstance()->set_template_path("/home/ashutosp/helloWorld/slow_only/case-3/profiling_problem/profiled_data/profile.prism");
+	GlobalSettings::getInstance()->set_template_path("/home/ashutosp/helloWorld/profile.prism");
 	GlobalSettings::getInstance()->set_plan_file("");
 	GlobalSettings::getInstance()->set_states_file("");
 	GlobalSettings::getInstance()->set_labels_file("");
 	GlobalSettings::getInstance()->set_result_file("result");
 	GlobalSettings::getInstance()->set_model_checker_spec_file("profile.prism");
 	GlobalSettings::getInstance()->set_problem_feature_file(""); // TODO
+	GlobalSettings::getInstance()->set_env_tag("// ENVIRONMENT DONE");
 }
 
 int main() {

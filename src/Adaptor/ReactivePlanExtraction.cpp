@@ -73,6 +73,7 @@ set<int> ReactivePlanExtraction::get_now_states() const {
 		}
 		break;
 	}
+
 	fin.close();
 
 	return states;

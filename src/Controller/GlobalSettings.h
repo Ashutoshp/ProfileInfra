@@ -91,6 +91,8 @@ private:
         // This should be inside m_source_directory/m_directory_prefix* directory
         string m_problem_feature_file;
 
+        string m_prism_spec_env_end_tag;
+
         /* Private constructor to prevent instancing. */
         GlobalSettings();
 
@@ -151,6 +153,9 @@ private:
 
         inline string get_problem_feature_file() const {return m_problem_feature_file;}
         inline void set_problem_feature_file(const string& file) {m_problem_feature_file = file;}
+
+        inline string get_env_tag() const {return m_prism_spec_env_end_tag;}
+        inline void set_env_tag(const string& file) {m_prism_spec_env_end_tag = file;}
 
         inline string get_reactive_plan_path() const {return m_source_directory + m_reactive_plan_dir + m_plan_file;}
         inline string get_reactive_planning_states_path() const {return m_source_directory + m_reactive_plan_dir + m_states_file;}
