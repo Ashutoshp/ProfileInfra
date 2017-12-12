@@ -40,3 +40,18 @@ Strings get_prefix_matching_directories(const char* path, const char* prefix) {
 
     return directories;
 }
+
+bool find_string_in_strings(const string& str, const Strings& strings) {
+	bool found = false;
+	Strings::const_iterator itr = strings.begin();
+
+	while (itr != strings.end()) {
+		if (*itr == str) {
+			found = true;
+			break;
+		}
+		++itr;
+	}
+
+	return found;
+}

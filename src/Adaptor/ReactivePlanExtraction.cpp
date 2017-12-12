@@ -13,7 +13,7 @@
 #include <boost/tokenizer.hpp>
 #include <string.h>
 
-ReactivePlanExtraction::ReactivePlanExtraction() : m_tactic_suffix("_start"), m_divert_str("divert_") {}
+ReactivePlanExtraction::ReactivePlanExtraction(const string& dir_path) : m_dir_path(dir_path), m_tactic_suffix("_start"), m_divert_str("divert_") {}
 
 Strings ReactivePlanExtraction::get_tactics_at_time(const string& time) const {
 	// TODO expand it for database. CUSTOMIZED
@@ -41,10 +41,10 @@ set<int> ReactivePlanExtraction::get_now_states() const {
 	 * <state>:(<value1>,<value2>,...)
 	 */
 	set<int> states;
-	ifstream fin(GlobalSettings::getInstance()->get_reactive_planning_states_path().c_str());
+	ifstream fin(GlobalSettings::getInstance()->get_reactive_planning_states_path(m_dir_path).c_str());
 
 	if (!fin) {
-		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_planning_states_path() << endl;
+		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_planning_states_path(m_dir_path) << endl;
 		return states;
 	}
 
@@ -73,6 +73,7 @@ set<int> ReactivePlanExtraction::get_now_states() const {
 		}
 		break;
 	}
+
 	fin.close();
 
 	return states;
@@ -95,10 +96,10 @@ Strings ReactivePlanExtraction::get_actions(const set<int>& states) const {
 	Strings actions;
 	typedef set<string> StringSet;
 	StringSet action_set;
-	ifstream fin(GlobalSettings::getInstance()->get_reactive_plan_path().c_str());
+	ifstream fin(GlobalSettings::getInstance()->get_reactive_plan_path(m_dir_path).c_str());
 
 	if (!fin) {
-		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_plan_path() << endl;
+		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_plan_path(m_dir_path) << endl;
 		return actions;
 	}
 
@@ -153,10 +154,10 @@ Strings ReactivePlanExtraction::get_actions(const set<int>& states) const {
 	 * 	0 is "initial", and 0 is always the first label if it appears in a row
 	 */
 	int state = -1;
-	ifstream labels(GlobalSettings::getInstance()->get_reactive_planning_labels_path().c_str());
+	ifstream labels(GlobalSettings::getInstance()->get_reactive_planning_labels_path(m_dir_path).c_str());
 
 	if (!labels) {
-		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_planning_labels_path() << endl;
+		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_planning_labels_path(m_dir_path) << endl;
 		return actions;
 	}
 

@@ -91,6 +91,8 @@ private:
         // This should be inside m_source_directory/m_directory_prefix* directory
         string m_problem_feature_file;
 
+        string m_prism_spec_env_end_tag;
+
         /* Private constructor to prevent instancing. */
         GlobalSettings();
 
@@ -152,18 +154,58 @@ private:
         inline string get_problem_feature_file() const {return m_problem_feature_file;}
         inline void set_problem_feature_file(const string& file) {m_problem_feature_file = file;}
 
-        inline string get_reactive_plan_path() const {return m_source_directory + m_reactive_plan_dir + m_plan_file;}
-        inline string get_reactive_planning_states_path() const {return m_source_directory + m_reactive_plan_dir + m_states_file;}
-        inline string get_reactive_planning_labels_path() const {return m_source_directory + m_reactive_plan_dir + m_labels_file;}
+        inline string get_env_tag() const {return m_prism_spec_env_end_tag;}
+        inline void set_env_tag(const string& file) {m_prism_spec_env_end_tag = file;}
 
-        inline string get_deliberative_spec_path() const {return m_source_directory + m_deliberative_plan_dir + m_deliberative_spec_file;}
-        inline string get_deliberative_plan_path() const {return m_source_directory + m_deliberative_plan_dir + m_plan_file;} // TODO not required for now
-        inline string get_deliberative_planning_time_path() const {return m_source_directory + m_deliberative_plan_dir + m_deliberative_planning_time_file;}
+        inline string get_reactive_plan_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_reactive_plan_dir + "/" + m_plan_file;}
+        inline string get_reactive_planning_states_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_reactive_plan_dir + "/" + m_states_file;}
+        inline string get_reactive_planning_labels_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_reactive_plan_dir + "/" + m_labels_file;}
 
-        inline string get_hybrid_spec_path() const {return m_destination_directory + m_destination_hybrid_dir + m_model_checker_spec_file;}
-        inline string get_hybrid_result_path() const {return m_destination_directory + m_destination_hybrid_dir + m_result_file;}
-        inline string get_delibetaive_only_spec_path() const {return m_destination_directory + m_destination_deliberative_dir + m_model_checker_spec_file;}
-        inline string get_deliberative_only_result_path() const {return m_destination_directory + m_destination_deliberative_dir + m_result_file;}
+        inline string get_deliberative_spec_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_deliberative_plan_dir + "/" + m_deliberative_spec_file;}
+        inline string get_deliberative_plan_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_deliberative_plan_dir + "/" + m_plan_file;} // TODO not required for now
+        inline string get_deliberative_planning_time_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_deliberative_plan_dir + "/" + m_deliberative_planning_time_file;}
+
+        //inline string get_hybrid_spec_path() const {return m_destination_directory + m_destination_hybrid_dir + m_model_checker_spec_file;}
+        //inline string get_hybrid_result_path() const {return m_destination_directory + m_destination_hybrid_dir + m_result_file;}
+        //inline string get_delibetaive_only_spec_path() const {return m_destination_directory + m_destination_deliberative_dir + m_model_checker_spec_file;}
+        //inline string get_deliberative_only_result_path() const {return m_destination_directory + m_destination_deliberative_dir + m_result_file;}
+
+        //inline string get_destination_dir_path(const string& parent_dir) const {return parent_dir + "/"
+        //        		+ m_destination_directory + "/" + m_destination_hybrid_dir + "/" + m_model_checker_spec_file;}
+        inline string get_hybrid_spec_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + "/" + m_destination_hybrid_dir + "/" + m_model_checker_spec_file;}
+        inline string get_hybrid_result_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + m_destination_hybrid_dir + m_result_file;}
+        inline string get_hybrid_adversary_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + "/" + m_destination_hybrid_dir + "/" + m_plan_file;}
+        inline string get_hybrid_states_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + "/" + m_destination_hybrid_dir + "/" + m_plan_file;}
+        inline string get_hybrid_labels_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + "/" + m_destination_hybrid_dir + "/" + m_plan_file;}
+
+        inline string get_delibetaive_only_spec_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + m_destination_deliberative_dir + m_model_checker_spec_file;}
+        inline string get_deliberative_only_result_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + m_destination_deliberative_dir + m_result_file;}
+        inline string get_deliberative_adversary_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + "/" + m_destination_deliberative_dir + "/" + m_plan_file;}
+        inline string get_deliberative_states_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + "/" + m_destination_deliberative_dir + "/" + m_plan_file;}
+        inline string get_deliberative_labels_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory + "/" + m_destination_deliberative_dir + "/" + m_plan_file;}
+
+        inline string get_destination_path(const string& parent_dir) const {return parent_dir + "/"
+        		+ m_destination_directory;}
+        inline string get_destination_hybrid_path(const string& parent_dir) const {return parent_dir + "/"
+                		+ m_destination_directory + "/" + m_destination_hybrid_dir;}
+        inline string get_destination_deliberative_only_path(const string& parent_dir) const {return parent_dir + "/"
+                		+ m_destination_directory + "/" + m_destination_deliberative_dir;}
 
         void debug();
 };

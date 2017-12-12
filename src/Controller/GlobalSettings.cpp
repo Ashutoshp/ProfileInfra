@@ -9,7 +9,7 @@
 #include <GlobalSettings.h>
 
 /* Null, because instance will be initialized on demand. */
-GlobalSettings* GlobalSettings::m_instance = 0;
+GlobalSettings* GlobalSettings::m_instance = NULL;
 
 GlobalSettings* GlobalSettings::getInstance() {
     if (m_instance == NULL) {
