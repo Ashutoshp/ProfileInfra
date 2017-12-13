@@ -25,6 +25,9 @@ private:
 	const string m_dir_path;
 	const string m_tactic_suffix; // CUSTOMIZED
 	const string m_divert_str; // CUSTOMIZED
+	const string m_pass_prefix;
+	const string m_complete_suffix;
+	const string m_progress_prefix;
 
 	/**
 	 * Finds the actions that take place in the given states

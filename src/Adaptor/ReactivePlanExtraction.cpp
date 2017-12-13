@@ -13,13 +13,25 @@
 #include <boost/tokenizer.hpp>
 #include <string.h>
 
-ReactivePlanExtraction::ReactivePlanExtraction(const string& dir_path) : m_dir_path(dir_path), m_tactic_suffix("_start"), m_divert_str("divert_") {}
+ReactivePlanExtraction::ReactivePlanExtraction(const string& dir_path) :
+	m_dir_path(dir_path),
+	m_tactic_suffix("_start"),
+	m_divert_str("divert_"),
+	m_pass_prefix("pass_"),
+	m_complete_suffix("_complete"),
+	m_progress_prefix("progress") {}
 
 Strings ReactivePlanExtraction::get_tactics_at_time(const string& time) const {
 	// TODO expand it for database. CUSTOMIZED
 	set<int> states = this->get_now_states();
 	Strings actions = get_actions(states);
 
+	Strings::iterator itr = actions.begin();
+
+	while (itr != actions.end()) {
+		cout << *itr << endl;
+		++itr;
+	}
 	return actions;
 }
 
@@ -113,6 +125,7 @@ Strings ReactivePlanExtraction::get_actions(const set<int>& states) const {
 	bool first_line = true;
 
 	while (getline(fin, line)) {
+		//cout << line << endl;
 		if (first_line) {
 			first_line = false;
 			continue;
@@ -133,13 +146,21 @@ Strings ReactivePlanExtraction::get_actions(const set<int>& states) const {
 				row.probability = atof(it->c_str());
 				if (++it != tokens.end()) { // has action
 					size_t action_length = it->length();
-					//cout << "action### " << *it << endl;
-					if (action_length > suffix_length || action_length > divert_prefix_len) {
-						if (it->compare(action_length - suffix_length, suffix_length, m_tactic_suffix) == 0
-						        || strncmp((*it).c_str(), m_divert_str.c_str(), divert_prefix_len) == 0) { // it's a tactic start action
+					//cout << "action ### " << *it << endl;
+					if (*it != "tick" && *it != "tack") {
+						row.action = *it;
+					}
+					/*if (action_length > suffix_length || action_length > divert_prefix_len
+							|| action_length > m_complete_suffix.length() || action_length > m_pass_prefix.length()
+							|| action_length > m_progress_prefix.length()) {
+						if ((it->compare(action_length - suffix_length, suffix_length, m_tactic_suffix) == 0)
+								|| (it->compare(action_length - m_complete_suffix.length(), m_complete_suffix.length(), m_complete_suffix) == 0)
+								|| strncmp((*it).c_str(), m_divert_str.c_str(), divert_prefix_len) == 0
+								|| strncmp((*it).c_str(), m_pass_prefix.c_str(), m_pass_prefix.length()) == 0
+								|| strncmp((*it).c_str(), m_progress_prefix .c_str(), m_progress_prefix.length()) == 0) { // it's a tactic start action
 							row.action = *it;
 						}
-					}
+					}*/
 				}
 				table.insert(pair<int, AdversaryRow>(state, row));
 			}

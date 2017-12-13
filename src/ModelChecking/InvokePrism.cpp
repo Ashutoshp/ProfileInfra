@@ -82,8 +82,9 @@ bool InvokePrism::run_prism() const {
 						GlobalSettings::getInstance()->get_model_checker_path().c_str(),
 						m_model_path.c_str(),
 						"-pctl", m_prism_property.c_str(),
-						"-exportadv", m_adversary_path.c_str(),
-						"-exportstates", m_states_path.c_str(),
+						//"-exportadv", m_adversary_path.c_str(),
+						//"-exportlabels", m_labels_path.c_str(),
+						//"-exportstates", m_states_path.c_str(),
 						"-cuddmaxmem", m_cuddmem.c_str(),
 						"-exportresults", m_result_file.c_str(),
 						"-s", (char*) 0);

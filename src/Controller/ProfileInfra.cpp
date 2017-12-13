@@ -64,19 +64,22 @@ int main() {
 			boost::system::error_code err_code;
 			bool result = boost::filesystem::create_directories(
 					GlobalSettings::getInstance()->get_destination_path(*iter), err_code);
-			result = result && boost::filesystem::create_directories(
+			//cout << "err_code = " << err_code << " result = " << result << " " << GlobalSettings::getInstance()->get_destination_path(*iter) << endl;
+			result = boost::filesystem::create_directories(
 					GlobalSettings::getInstance()->get_destination_hybrid_path(*iter), err_code);
-			result = result && boost::filesystem::create_directories(
+			//cout << "err_code = " << err_code << " result = " << result << " " << GlobalSettings::getInstance()->get_destination_hybrid_path(*iter) << endl;
+			result = boost::filesystem::create_directories(
 					GlobalSettings::getInstance()->get_destination_deliberative_only_path(*iter), err_code);
+			//cout << "err_code = " << err_code << " result = " << result << " " << GlobalSettings::getInstance()->get_destination_deliberative_only_path(*iter) << endl;
 
 			//fs::create_directory("sandbox/1/2/b");
 
-			if (!result) {
+			//if (!result) {
 				// ERROR
 				// TODO better error message
-				cerr << "ERROR: main()" << endl;
-				break;
-			}
+			//	cerr << "ERROR: main()" << endl;
+			//	break;
+			//}
 
 			//std::experimental::filesystem fs;
 
