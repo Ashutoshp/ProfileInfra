@@ -45,6 +45,7 @@ bool InvokePrism::run_prism() const {
 	// TODO need to throw exceptions to provide better error handling
 	// TODO use Prism APIs for invocation
 	// TODO customize flags for Prism invocation
+
     //checkPwd();
     //static int i = 0;
     //printf("i=%d\n", ++i);

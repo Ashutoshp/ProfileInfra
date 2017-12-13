@@ -16,5 +16,6 @@ using namespace std;
 typedef vector<string> Strings;
 
 Strings get_prefix_matching_directories(const char* path, const char* prefix);
+bool find_string_in_strings(const string& str, const Strings& strings);
 
 #endif
