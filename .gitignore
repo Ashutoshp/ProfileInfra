@@ -1,7 +1,4 @@
 *.o
 *.d
-.cproject
-.project
-.settings/
 Debug/ProfileInfra
 *.swp
