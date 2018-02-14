@@ -93,6 +93,16 @@ private:
 
         string m_prism_spec_env_end_tag;
 
+        // Stores information about sample problems created from simulation
+        string m_features_csv_file;
+
+        // Length of time series
+        unsigned m_time_series_length;
+
+        // The csv file to write profiling results based on features
+        string m_output_db_file;
+
+
         /* Private constructor to prevent instancing. */
         GlobalSettings();
 
@@ -206,6 +216,16 @@ private:
                 		+ m_destination_directory + "/" + m_destination_hybrid_dir;}
         inline string get_destination_deliberative_only_path(const string& parent_dir) const {return parent_dir + "/"
                 		+ m_destination_directory + "/" + m_destination_deliberative_dir;}
+
+        inline void set_features_file(const string& file) {m_features_csv_file = file;}
+        inline string get_features_file() const {return m_features_csv_file;}
+
+        inline void set_time_series_length(const unsigned length) {m_time_series_length = length;}
+		inline unsigned get_time_series_length() const {return m_time_series_length;}
+
+        inline void set_output_db_file(const string& file) {m_output_db_file = file;}
+        inline string get_output_db_file() const {return m_output_db_file;}
+
 
         void debug();
 };

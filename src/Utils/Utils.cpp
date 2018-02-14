@@ -11,7 +11,9 @@
 #include <dirent.h>
 #include <Utils.h>
 #include <string.h>
-
+#include <assert.h>
+#include <fstream>
+#include <stdlib.h>
 
 Strings get_prefix_matching_directories(const char* path, const char* prefix) {
 	Strings directories;
@@ -55,3 +57,24 @@ bool find_string_in_strings(const string& str, const Strings& strings) {
 
 	return found;
 }
+
+double get_result_from_file(const string& file_name) {
+	ifstream result_file (file_name.c_str(), std::ifstream::in);
+
+	assert(result_file.good());
+
+	string line;
+
+	getline (result_file, line);
+	assert(line == "Result");
+
+	assert(result_file.good());
+	getline (result_file, line);
+
+	char* end;
+
+	double result = strtod(line.c_str(), &end);
+
+	return result;
+}
+

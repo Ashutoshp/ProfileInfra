@@ -15,16 +15,20 @@
 //#include <cstdlib>
 #include <experimental/filesystem>
 //#include <fstream>
+#include <ProblemDB.h>
+#include <DBWriter.h>
+
+
 
 //#include <jni.h>
 //namespace fs = std::experimental::filesystem;
 
 void do_settings() {
-	GlobalSettings::getInstance()->set_source_dir("/home/ashutosp/helloWorld/slow_only/case-3/profiling_problem/");
+	GlobalSettings::getInstance()->set_source_dir("/home/ashutosp/helloWorld/");
 	//GlobalSettings::getInstance()->set_destination_dir("/home/ashutosp/helloWorld/slow_only/case-3/profiling_problem/profiled_data");
 	GlobalSettings::getInstance()->set_destination_dir("profiled_data");
 	GlobalSettings::getInstance()->set_directory_prefix("model");
-	GlobalSettings::getInstance()->set_model_checker_path("/home/ashutosp/Downloads/Prism//bin/prism");
+	GlobalSettings::getInstance()->set_model_checker_path("/home/ashutosp/Prism/prism/bin/prism");
 	GlobalSettings::getInstance()->set_reactive_plan_dir("fast");
 	GlobalSettings::getInstance()->set_deliberative_plan_dir("slow");
 	GlobalSettings::getInstance()->set_deliberative_spec_file("ttimemodel.prism");
@@ -32,13 +36,16 @@ void do_settings() {
 	GlobalSettings::getInstance()->set_destination_hybrid_dir("hybrid");
 	GlobalSettings::getInstance()->set_destination_deliberative_dir("slow");
 	GlobalSettings::getInstance()->set_template_path("/home/ashutosp/helloWorld/model-check.prism");
-	GlobalSettings::getInstance()->set_plan_file("plan.adv");
-	GlobalSettings::getInstance()->set_states_file("plan.sta");
-	GlobalSettings::getInstance()->set_labels_file("plan.lab");
+	GlobalSettings::getInstance()->set_plan_file("result.adv");
+	GlobalSettings::getInstance()->set_states_file("result.sta");
+	GlobalSettings::getInstance()->set_labels_file("result.lab");
 	GlobalSettings::getInstance()->set_result_file("result");
 	GlobalSettings::getInstance()->set_model_checker_spec_file("profile.prism");
 	GlobalSettings::getInstance()->set_problem_feature_file(""); // TODO
 	GlobalSettings::getInstance()->set_env_tag("// #ENV ENDS");
+	GlobalSettings::getInstance()->set_features_file("/home/ashutosp/helloWorld/features.csv");
+	GlobalSettings::getInstance()->set_time_series_length(21);
+	GlobalSettings::getInstance()->set_output_db_file("/home/ashutosp/helloWorld/db.csv");
 }
 
 int main() {
@@ -46,7 +53,11 @@ int main() {
 	do_settings();
 
 	// Get directories (matching prefix) for input planning problems
-	Strings input_dirs = get_prefix_matching_directories(GlobalSettings::getInstance()->get_source_dir().c_str(), GlobalSettings::getInstance()->get_directory_prefix().c_str());
+	//Strings input_dirs = get_prefix_matching_directories(GlobalSettings::getInstance()->get_source_dir().c_str(), GlobalSettings::getInstance()->get_directory_prefix().c_str());
+	// Read feature file written during problem generation from simulation.
+	ProblemDB::getInstance()->populate_db();
+	Strings input_dirs;
+	ProblemDB::getInstance()->get_sample_problem_dirs(input_dirs);
 
 	if (input_dirs.size() != 0) {
 		// Iterate each directory and call adaptor to write files to a given location.
@@ -118,55 +129,43 @@ int main() {
 
 			++iter;
 		}
+
+
+
+		// open a new csv file
+		DBWriter db_writer = DBWriter(GlobalSettings::getInstance()->get_output_db_file());
+
+		// Read result file from each location.
+		// input dirs iterate
+		iter = input_dirs.begin();
+
+		while (iter != input_dirs.end()) {
+			string hybrid_result_file = GlobalSettings::getInstance()->get_hybrid_result_path(*iter);
+			string delieberative_result_file = GlobalSettings::getInstance()->get_deliberative_only_result_path(*iter);
+
+			double hybrid_result = get_result_from_file(hybrid_result_file);
+			double deliberative_result = get_result_from_file(delieberative_result_file);
+
+			bool use_reactive = (hybrid_result > deliberative_result) ? 1 : 0;
+
+			const vector<float>time_series = ProblemDB::getInstance()->get_time_series(*iter);
+
+			db_writer.write_line(*iter, time_series, use_reactive);
+
+			++iter;
+		}
+
+		// read hybrid and slow result file
+		// write to csv file
+		// close the csv file
+
+		// Write result to database i.e., features, Yes/No
+		db_writer.close_writer();
+		ProblemDB::getInstance()->clean_db();
+
 	} else {
 		std::cerr << "ERROR: No matching directories found" << std::endl;
 	}
-
-	// Read result file from each location
-
-	// Write result to database i.e., features, Yes/No
-
-	//cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-
-	/*JavaVM *vm;
-	JNIEnv *env;
-	JavaVMInitArgs vm_args;
-	vm_args.version = JNI_VERSION_1_8;
-	vm_args.nOptions = 0;
-	vm_args.ignoreUnrecognized = 1;
-
-	JavaVMOption* options = new JavaVMOption[1];   // JVM invocation options
-	//options[0].optionString = "-Djava.class.path=.";   // where to find java .class
-	options[0].optionString = "-Xss1280k";
-
-	vm_args.options = options;
-
-	// Construct a VM
-	jint res = JNI_CreateJavaVM(&vm, (void **)&env, &vm_args);
-	delete options;
-
-	// Construct a String
-	jstring jstr = env->NewStringUTF("Hello World");
-
-	// First get the class that contains the method you need to call
-	jclass clazz = env->FindClass("java/lang/String");
-
-	// Get the method that you want to call
-	jmethodID to_lower = env->GetMethodID(clazz, "toLowerCase",
-	                                      "()Ljava/lang/String;");
-	// Call the method on the object
-	jobject result = env->CallObjectMethod(jstr, to_lower);
-
-	// Get a C-style string
-	const char* str = env->GetStringUTFChars((jstring) result, NULL);
-
-	printf("%s\n", str);
-
-	// Clean up
-	env->ReleaseStringUTFChars(jstr, str);
-
-	// Shutdown the VM.
-	vm->DestroyJavaVM();*/
 
 	return 0;
 }

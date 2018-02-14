@@ -26,5 +26,6 @@ SUBDIRS := \
 src/Adaptor \
 src/Controller \
 src/ModelChecking \
+src/ProblemDB \
 src/Utils \
 

@@ -12,6 +12,7 @@
 #include <GlobalSettings.h>
 #include <fstream>
 #include <Utils.h>
+#include <assert.h>
 
 SpecGenerator::SpecGenerator(const string& dir): m_sample_problem_dir(dir) {
 
@@ -215,7 +216,8 @@ bool SpecGenerator::copy_template_file(ofstream& fout) const {
 
 	if (!prism_template) {
 		cout << "Could not template file " << GlobalSettings::getInstance()->get_template_path() << endl;
-		return false;
+		assert(false);
+		//return false;
 	}
 
 	string line;
@@ -251,7 +253,9 @@ bool SpecGenerator::generate_hybrid_spec() const {
 	if (!fout) {
 		cout << "Could not write hybrid specification file "
 				<< GlobalSettings::getInstance()->get_hybrid_spec_path(m_sample_problem_dir) << endl;
-		return result;
+		assert(false);
+
+		//return result;
 	}
 
 	// Write initial states and environment
@@ -281,7 +285,9 @@ bool SpecGenerator::generate_deliberative_spec() const {
 	if (!fout) {
 		cout << "Could not write hybrid specification file "
 				<< GlobalSettings::getInstance()->get_delibetaive_only_spec_path(m_sample_problem_dir) << endl;
-		return result;
+		assert(false);
+
+		//return result;
 	}
 
 	// Write initial states and environment
