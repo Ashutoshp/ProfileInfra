@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <ProblemDB.h>
 
 //#include <map>
 //#include <GlobalSettings.h>
@@ -45,7 +46,7 @@ class DBWriter {
 	DBWriter(const string& file_name);
 	void close_writer();
 	~DBWriter();
-	void write_line(const string sample_problem_path, const TimeSeries& time_series, bool use_reactive) const;
+	void write_line(const string sample_problem_path, const ProblemDB::ProblemData* data, bool use_reactive) const;
 };
 
 

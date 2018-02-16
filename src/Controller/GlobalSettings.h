@@ -102,6 +102,8 @@ private:
         // The csv file to write profiling results based on features
         string m_output_db_file;
 
+        string m_log_file;
+
 
         /* Private constructor to prevent instancing. */
         GlobalSettings();
@@ -226,6 +228,8 @@ private:
         inline void set_output_db_file(const string& file) {m_output_db_file = file;}
         inline string get_output_db_file() const {return m_output_db_file;}
 
+        inline void set_log_file(const string& file) {m_log_file = file;}
+        inline string get_log_file() const {return m_log_file;}
 
         void debug();
 };

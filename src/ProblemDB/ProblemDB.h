@@ -19,14 +19,28 @@
 using namespace std;
 
 class ProblemDB {
-
 public:
 	typedef vector<float> TimeSeries;
+
+	struct ProblemData {
+		string m_fast_plan_dir;
+		string m_slow_plan_dir;
+		float m_dimmer;
+		unsigned m_server_A_count;
+		unsigned m_server_B_count;
+		unsigned m_server_C_count;
+		unsigned m_server_A_status;
+		unsigned m_server_B_status;
+		unsigned m_server_C_status;
+		TimeSeries m_work_load;
+	};
+
 	typedef vector<string> Strings;
 
 	static ProblemDB* getInstance();
 
 	TimeSeries get_time_series(const string& problem_dir) const;
+	const ProblemData* get_problem_data(const string& problem_dir) const;
 	void get_sample_problem_dirs(Strings& problems) const;
 
 	bool populate_db();
@@ -36,11 +50,6 @@ public:
 private:
 	static ProblemDB* m_instance;
 
-	struct ProblemData {
-		string fast_plan_dir;
-		string slow_plan_dir;
-		TimeSeries m_work_load;
-	};
 
 	typedef map<string, ProblemData*> Database;
 	Database m_sample_problem_db;

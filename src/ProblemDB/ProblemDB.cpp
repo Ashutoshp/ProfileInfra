@@ -9,6 +9,8 @@
 #include <ProblemDB.h>
 #include <boost/tokenizer.hpp>
 #include <fstream>
+#include <string>
+#include <Log.h>
 
 /* Null, because instance will be initialized on demand. */
 ProblemDB* ProblemDB::m_instance = NULL;
@@ -59,7 +61,7 @@ bool ProblemDB::populate_db() {
 
 
 	    if (it != tokens.end()) {
-	       	data->fast_plan_dir = *it;
+	       	data->m_fast_plan_dir = *it;
 	       	//cout << "fast_plan_dir = " << data->fast_plan_dir << endl;
 	        ++it;
 	    } else {
@@ -67,11 +69,67 @@ bool ProblemDB::populate_db() {
 	    }
 
 	    if (it != tokens.end()) {
-	    	data->slow_plan_dir = *it;
+	    	data->m_slow_plan_dir = *it;
 	       	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	        ++it;
 	    } else {
 	    	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_dimmer = atof((*it).c_str());
+	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_A_count = strtoul ((*it).c_str(), nullptr, 0);
+	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_B_count = strtoul ((*it).c_str(), nullptr, 0);
+	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_C_count = strtoul ((*it).c_str(), nullptr, 0);
+	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_A_status = strtoul ((*it).c_str(), nullptr, 0);
+	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_B_status = strtoul ((*it).c_str(), nullptr, 0);
+	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_C_status = strtoul ((*it).c_str(), nullptr, 0);
+	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
 	    }
 
 	    if (it != tokens.end()) {
@@ -140,5 +198,11 @@ ProblemDB::TimeSeries ProblemDB::get_time_series(const string& problem_dir) cons
 	return itr->second->m_work_load;
 }
 
+const ProblemDB::ProblemData* ProblemDB::get_problem_data(const string& problem_dir) const {
+	Database::const_iterator itr = m_sample_problem_db.find(problem_dir);
+	assert(itr != m_sample_problem_db.end());
+
+	return itr->second;
+}
 
 

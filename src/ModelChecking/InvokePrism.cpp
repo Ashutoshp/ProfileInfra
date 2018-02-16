@@ -21,6 +21,12 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <GlobalSettings.h>
+#include <Log.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#define die(e) do { fprintf(stderr, "%s\n", e); exit(EXIT_FAILURE); } while (0);
 
 InvokePrism::InvokePrism(const string& model_path,
 		const string& result_file,
@@ -45,6 +51,7 @@ bool InvokePrism::run_prism() const {
 	// TODO need to throw exceptions to provide better error handling
 	// TODO use Prism APIs for invocation
 	// TODO customize flags for Prism invocation
+	// TODO use booth API for path comparision
 
     //checkPwd();
     //static int i = 0;
@@ -63,13 +70,22 @@ bool InvokePrism::run_prism() const {
      //           PRISM, modelPath, PRISM_PROPERTY, adversaryPath, statesPath, labelsPath);
     //printf("%s\n", command);
 
+	int link[2];
+	char foo[32768];
+
+	if (pipe(link)==-1) {
+	    die("pipe");
+	}
+
 	pid_t pid = fork();
 	if (pid == 0) {
 		// child
 		// TODO perhaps we need to pipe the output to get errorr descriptions
 		// see this url for example: http://www.cs.uleth.ca/~holzmann/C/system/pipeforkexec.htmls
 		int status = 0;
-
+		dup2 (link[1], STDOUT_FILENO);
+		close(link[0]);
+		close(link[1]);
 		//if (returnPlan) {
 		    //if (simulation.getSystemModule()->par("usePredictor").boolValue()) {
 
@@ -92,6 +108,7 @@ bool InvokePrism::run_prism() const {
 
 		if (status == -1) { // the only option really, otherwise execlp doesn't return
 		    cout << "InvokePrism::run_prism() error: " << strerror(errno) << endl;
+		    Log::getInstance("InvokePrism::run_prism() error");
 			return false; // error
 		}
 	} else if (pid == -1) {
@@ -100,10 +117,18 @@ bool InvokePrism::run_prism() const {
 	} else {
 		// parent
 		int status;
+
 		int rval = waitpid(pid, &status, 0);
+
+		close(link[1]);
+		int nbytes = read(link[0], foo, sizeof(foo));
+		printf("Output: (%.*s)\n", nbytes, foo);
+		Log::getInstance()->write(foo);
+
 		if (rval > 0 && WIFEXITED(status) && WEXITSTATUS(status) == 0) {
 			return true;
 		}
+
 	}
 
 	return false;

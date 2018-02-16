@@ -19,7 +19,7 @@ GlobalSettings* GlobalSettings::getInstance() {
     return m_instance;
 }
 
-GlobalSettings::GlobalSettings() {
+GlobalSettings::GlobalSettings() : m_time_series_length(0) {
 
 }
 

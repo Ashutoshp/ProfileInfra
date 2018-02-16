@@ -17,8 +17,7 @@
 //#include <fstream>
 #include <ProblemDB.h>
 #include <DBWriter.h>
-
-
+#include <Log.h>
 
 //#include <jni.h>
 //namespace fs = std::experimental::filesystem;
@@ -46,11 +45,15 @@ void do_settings() {
 	GlobalSettings::getInstance()->set_features_file("/home/ashutosp/helloWorld/features.csv");
 	GlobalSettings::getInstance()->set_time_series_length(21);
 	GlobalSettings::getInstance()->set_output_db_file("/home/ashutosp/helloWorld/db.csv");
+	GlobalSettings::getInstance()->set_log_file("/home/ashutosp/profile_log");
 }
 
 int main() {
 	// Global settings
 	do_settings();
+
+	// Open log file
+	Log::getInstance(GlobalSettings::getInstance()->get_log_file());
 
 	// Get directories (matching prefix) for input planning problems
 	//Strings input_dirs = get_prefix_matching_directories(GlobalSettings::getInstance()->get_source_dir().c_str(), GlobalSettings::getInstance()->get_directory_prefix().c_str());
@@ -67,8 +70,11 @@ int main() {
 			// adapt (source directory)
 			// it will get slow and fast directory, deliberative time,
 			// needs to parse fast plan to extract the action
-			// use template and slow specification to create specification file
+			// use template andLog::getInstance()->write slow specification to create specification file
 			// hybrid only is always fixed
+
+			cout << "Creating profiling directories inside " << *iter << endl;
+			Log::getInstance()->write("Creating profiling directories inside " + *iter);
 
 			// Create directories
 			// TODO error check
@@ -105,12 +111,18 @@ int main() {
 		iter = input_dirs.begin();
 
 		while (iter != input_dirs.end()) {
+			cout << "Profiling inside directory " << *iter << endl;
+			Log::getInstance()->write("Profiling inside directory " + *iter);
+
 			// For hybrid model
 			string model_path = GlobalSettings::getInstance()->get_hybrid_spec_path(*iter);
 			string result_file = GlobalSettings::getInstance()->get_hybrid_result_path(*iter);
 			string adversary_file = GlobalSettings::getInstance()->get_hybrid_adversary_path(*iter);
 			string states_file = GlobalSettings::getInstance()->get_hybrid_states_path(*iter);
 			string labels_file = GlobalSettings::getInstance()->get_hybrid_labels_path(*iter);
+
+			cout << "Hybrid profiling inside directory " << *iter << endl;
+			Log::getInstance()->write("Hybrid profiling inside directory " + *iter);
 
 			InvokePrism* invoke_prism = new InvokePrism(model_path, result_file, adversary_file, states_file, labels_file);
 			invoke_prism->run_prism();
@@ -123,14 +135,15 @@ int main() {
 			states_file = GlobalSettings::getInstance()->get_deliberative_adversary_path(*iter);
 			labels_file = GlobalSettings::getInstance()->get_deliberative_labels_path(*iter);
 
+			cout << "Deliberative only profiling inside directory " << *iter << endl;
+			Log::getInstance()->write("Deliberative only profiling inside directory  " + *iter);
+
 			invoke_prism = new InvokePrism(model_path, result_file, adversary_file, states_file, labels_file);
 			invoke_prism->run_prism();
 			delete invoke_prism;
 
 			++iter;
 		}
-
-
 
 		// open a new csv file
 		DBWriter db_writer = DBWriter(GlobalSettings::getInstance()->get_output_db_file());
@@ -148,9 +161,15 @@ int main() {
 
 			bool use_reactive = (hybrid_result > deliberative_result) ? 1 : 0;
 
-			const vector<float>time_series = ProblemDB::getInstance()->get_time_series(*iter);
+			//const vector<float>time_series = ProblemDB::getInstance()->get_time_series(*iter);
+			const ProblemDB::ProblemData* data = ProblemDB::getInstance()->get_problem_data(*iter);
 
-			db_writer.write_line(*iter, time_series, use_reactive);
+			cout << "Writing results for directory " << *iter << endl;
+			Log::getInstance()->write("Writing results for directory " + *iter);
+			cout << "Use reactive = " << use_reactive << endl;
+			Log::getInstance()->write("Use reactive = " + *iter);
+
+			db_writer.write_line(*iter, data, use_reactive);
 
 			++iter;
 		}
@@ -163,9 +182,14 @@ int main() {
 		db_writer.close_writer();
 		ProblemDB::getInstance()->clean_db();
 
+		cout << "=========================== PROFILING DONE ======================" << endl;
+		Log::getInstance()->write("=========================== PROFILING DONE ======================");
 	} else {
 		std::cerr << "ERROR: No matching directories found" << std::endl;
+		Log::getInstance()->write("ERROR: No matching directories found");
 	}
+
+	Log::close_writer();
 
 	return 0;
 }
