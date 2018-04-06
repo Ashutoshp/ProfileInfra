@@ -30,6 +30,10 @@ DBWriter::~DBWriter() {
 	if (m_foutP != NULL) delete m_foutP;
 }
 
+void DBWriter::write_header(const string& header) const {
+	*m_foutP << header;
+}
+
 void DBWriter::write_line(const string sample_problem_path, const ProblemDB::ProblemData* data, bool use_reactive) const {
 	assert(m_foutP != NULL);
 

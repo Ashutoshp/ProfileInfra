@@ -147,6 +147,7 @@ int main() {
 
 		// open a new csv file
 		DBWriter db_writer = DBWriter(GlobalSettings::getInstance()->get_output_db_file());
+		db_writer.write_header(ProblemDB::getInstance()->get_header());
 
 		// Read result file from each location.
 		// input dirs iterate

@@ -36,6 +36,14 @@ bool ProblemDB::populate_db() {
 	while ( features_file.good() ) {
 		getline ( features_file, line);
 
+		++line_count;
+
+		if (line_count == 1) {
+			// Store the header to write later.
+			m_header = line;
+			continue;
+		}
+
 		string sample_problem_dir;
 		ProblemData* data = new ProblemData();
 
@@ -43,10 +51,12 @@ bool ProblemDB::populate_db() {
 
 	    if (line == "") {
 	    	// Kind of Hack
-	    	continue;
+	    	assert(false);
+	    	//delete data;
+	    	//data = NULL;
+	    	//continue;
 	    }
 
-		++line_count;
 
 		tokenizer tokens(line, boost::char_separator<char>(",\n"));
 	    tokenizer::iterator it = tokens.begin();

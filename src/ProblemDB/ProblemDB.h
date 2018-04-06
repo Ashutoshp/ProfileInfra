@@ -56,12 +56,15 @@ public:
 	const ProblemData* get_problem_data(const string& problem_dir) const;
 	void get_sample_problem_dirs(Strings& problems) const;
 
+	inline string get_header() const {return m_header;}
+
 	bool populate_db();
 	void clean_db();
 
 
 private:
 	static ProblemDB* m_instance;
+	string m_header;
 
 
 	typedef map<string, ProblemData*> Database;

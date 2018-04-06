@@ -46,7 +46,9 @@ class DBWriter {
 	DBWriter(const string& file_name);
 	void close_writer();
 	~DBWriter();
-	void write_line(const string sample_problem_path, const ProblemDB::ProblemData* data, bool use_reactive) const;
+	void write_header(const string& header) const;
+	void write_line(const string sample_problem_path,
+			const ProblemDB::ProblemData* data, bool use_reactive) const;
 };
 
 
