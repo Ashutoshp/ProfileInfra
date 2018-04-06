@@ -21,17 +21,30 @@ using namespace std;
 class ProblemDB {
 public:
 	typedef vector<float> TimeSeries;
+	//enum TrafficLoad {
+	//        ZERO, TWENTYFIVE, FIFTY, SEVENTYFIVE, HUNDRED, INVALID
+	//};
 
 	struct ProblemData {
 		string m_fast_plan_dir;
 		string m_slow_plan_dir;
+
 		float m_dimmer;
+
 		unsigned m_server_A_count;
 		unsigned m_server_B_count;
 		unsigned m_server_C_count;
+
 		unsigned m_server_A_status;
 		unsigned m_server_B_status;
 		unsigned m_server_C_status;
+
+		unsigned m_server_A_load;
+		unsigned m_server_B_load;
+		unsigned m_server_C_load;
+
+		float m_average_response_time;
+
 		TimeSeries m_work_load;
 	};
 

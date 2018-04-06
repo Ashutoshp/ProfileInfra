@@ -53,7 +53,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	sample_problem_dir = *it;
-	    	//cout << "sample_problem_dir = " << sample_problem_dir << endl;
 	        ++it;
 	    } else {
 	    	assert(false);
@@ -62,7 +61,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	       	data->m_fast_plan_dir = *it;
-	       	//cout << "fast_plan_dir = " << data->fast_plan_dir << endl;
 	        ++it;
 	    } else {
 	    	assert(false);
@@ -70,7 +68,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_slow_plan_dir = *it;
-	       	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	        ++it;
 	    } else {
 	    	assert(false);
@@ -78,7 +75,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_dimmer = atof((*it).c_str());
-	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	    	++it;
 	    } else {
 	       	assert(false);
@@ -86,7 +82,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_server_A_count = strtoul ((*it).c_str(), nullptr, 0);
-	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	    	++it;
 	    } else {
 	       	assert(false);
@@ -94,7 +89,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_server_B_count = strtoul ((*it).c_str(), nullptr, 0);
-	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	    	++it;
 	    } else {
 	       	assert(false);
@@ -102,7 +96,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_server_C_count = strtoul ((*it).c_str(), nullptr, 0);
-	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	    	++it;
 	    } else {
 	       	assert(false);
@@ -110,7 +103,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_server_A_status = strtoul ((*it).c_str(), nullptr, 0);
-	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	    	++it;
 	    } else {
 	       	assert(false);
@@ -118,7 +110,6 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_server_B_status = strtoul ((*it).c_str(), nullptr, 0);
-	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
 	    	++it;
 	    } else {
 	       	assert(false);
@@ -126,7 +117,34 @@ bool ProblemDB::populate_db() {
 
 	    if (it != tokens.end()) {
 	    	data->m_server_C_status = strtoul ((*it).c_str(), nullptr, 0);
-	    	//cout << "slow_plan_dir = " << data->slow_plan_dir << endl;
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_A_load = strtoul ((*it).c_str(), nullptr, 0);
+	    	++it;
+	    } else {
+	    	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_B_load = strtoul ((*it).c_str(), nullptr, 0);
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_server_C_load = strtoul ((*it).c_str(), nullptr, 0);
+	    	++it;
+	    } else {
+	       	assert(false);
+	    }
+
+	    if (it != tokens.end()) {
+	    	data->m_average_response_time = atof ((*it).c_str());
 	    	++it;
 	    } else {
 	       	assert(false);

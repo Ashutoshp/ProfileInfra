@@ -41,7 +41,6 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.2127589052" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.linker.494952648" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
 								<option id="gnu.cpp.link.option.libs.1653585404" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="jvm"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_system"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_filesystem"/>
 								</option>
@@ -59,6 +58,32 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.420197638.1567709229" name="/" resourcePath="src">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.debug.1016290672" name="Cross GCC" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.debug" unusedChildren="">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.2087496612" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler.1060870172">
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.856827241" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.100817284" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler.371181291">
+								<option id="gnu.cpp.compiler.option.include.paths.1431802854" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/lib/jvm/java-8-oracle/include"/>
+									<listOptionValue builtIn="false" value="/usr/lib/jvm/java-8-oracle/include/linux"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/Utils}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/Adaptor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/Controller}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/ModelChecking}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/ProblemDB}&quot;"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1035377266" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.831426484" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker.2127589052"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.linker.546760107" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker.494952648"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.2042498725" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver.485908844"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.assembler.1995919605" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler.1011607786">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.990175971" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
 					<folderInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.420197638.470490072" name="/" resourcePath="src/Controller">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.debug.566710105" name="Cross GCC" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.debug" unusedChildren="">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
@@ -73,6 +98,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/ModelChecking}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/Controller}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/Utils}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ProfileInfra/src/ProblemDB}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1475111545" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>

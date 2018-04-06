@@ -42,6 +42,11 @@ void DBWriter::write_line(const string sample_problem_path, const ProblemDB::Pro
 	*m_foutP << data->m_server_A_status << ",";
 	*m_foutP << data->m_server_B_status << ",";
 	*m_foutP << data->m_server_C_status << ",";
+	*m_foutP << data->m_server_A_load << ",";
+	*m_foutP << data->m_server_B_load << ",";
+	*m_foutP << data->m_server_C_load << ",";
+	*m_foutP << data->m_average_response_time << ",";
+
 
 	TimeSeries::const_iterator itr = data->m_work_load.begin();
 
