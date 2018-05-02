@@ -26,6 +26,7 @@ public:
 	//};
 
 	struct ProblemData {
+		string m_trace;
 		string m_fast_plan_dir;
 		string m_slow_plan_dir;
 

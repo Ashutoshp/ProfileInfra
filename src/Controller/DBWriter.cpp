@@ -31,14 +31,16 @@ DBWriter::~DBWriter() {
 }
 
 void DBWriter::write_header(const string& header) const {
-	*m_foutP << header;
+	*m_foutP << header << '\n';
 }
 
 void DBWriter::write_line(const string sample_problem_path, const ProblemDB::ProblemData* data, bool use_reactive) const {
 	assert(m_foutP != NULL);
 
+	*m_foutP << data->m_trace << ",";
 	*m_foutP << sample_problem_path << ",";
-
+	*m_foutP << data->m_fast_plan_dir << ",";
+	*m_foutP << data->m_slow_plan_dir << ",";
 	*m_foutP << data->m_dimmer << ",";
 	*m_foutP << data->m_server_A_count << ",";
 	*m_foutP << data->m_server_B_count << ",";

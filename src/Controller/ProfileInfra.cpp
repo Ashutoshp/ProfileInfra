@@ -23,7 +23,7 @@
 //namespace fs = std::experimental::filesystem;
 
 void do_settings() {
-	GlobalSettings::getInstance()->set_source_dir("/home/ashutosp/helloWorld/");
+	GlobalSettings::getInstance()->set_source_dir("/home/ashutosp/ProfilingProblems/");
 	//GlobalSettings::getInstance()->set_destination_dir("/home/ashutosp/helloWorld/slow_only/case-3/profiling_problem/profiled_data");
 	GlobalSettings::getInstance()->set_destination_dir("profiled_data");
 	GlobalSettings::getInstance()->set_directory_prefix("model");
@@ -34,7 +34,7 @@ void do_settings() {
 	GlobalSettings::getInstance()->set_deliberative_planning_time_file(""); // TODO
 	GlobalSettings::getInstance()->set_destination_hybrid_dir("hybrid");
 	GlobalSettings::getInstance()->set_destination_deliberative_dir("slow");
-	GlobalSettings::getInstance()->set_template_path("/home/ashutosp/helloWorld/model-check.prism");
+	GlobalSettings::getInstance()->set_template_path("/home/ashutosp/Sandbox/plasasim/templates/model-check.prism");
 	GlobalSettings::getInstance()->set_plan_file("result.adv");
 	GlobalSettings::getInstance()->set_states_file("result.sta");
 	GlobalSettings::getInstance()->set_labels_file("result.lab");
@@ -42,10 +42,10 @@ void do_settings() {
 	GlobalSettings::getInstance()->set_model_checker_spec_file("profile.prism");
 	GlobalSettings::getInstance()->set_problem_feature_file(""); // TODO
 	GlobalSettings::getInstance()->set_env_tag("// #ENV ENDS");
-	GlobalSettings::getInstance()->set_features_file("/home/ashutosp/helloWorld/features.csv");
-	GlobalSettings::getInstance()->set_time_series_length(21);
-	GlobalSettings::getInstance()->set_output_db_file("/home/ashutosp/helloWorld/db.csv");
-	GlobalSettings::getInstance()->set_log_file("/home/ashutosp/profile_log");
+	GlobalSettings::getInstance()->set_features_file("/home/ashutosp/ProfilingProblems/features.csv");
+	GlobalSettings::getInstance()->set_time_series_length(20);
+	GlobalSettings::getInstance()->set_output_db_file("/home/ashutosp/ProfilingProblems/db.csv");
+	GlobalSettings::getInstance()->set_log_file("/home/ashutosp/ProfilingProblems/profile_log");
 }
 
 int main() {

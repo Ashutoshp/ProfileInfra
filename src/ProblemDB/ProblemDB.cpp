@@ -44,22 +44,31 @@ bool ProblemDB::populate_db() {
 			continue;
 		}
 
+	    if (line == "") {
+	    	// Kind of Hack
+	    	//assert(false);
+	    	//delete data;
+	    	//data = NULL;
+	    	continue;
+	    }
+
 		string sample_problem_dir;
 		ProblemData* data = new ProblemData();
 
 	    //cout << line << endl;
 
-	    if (line == "") {
-	    	// Kind of Hack
-	    	assert(false);
-	    	//delete data;
-	    	//data = NULL;
-	    	//continue;
-	    }
+
 
 
 		tokenizer tokens(line, boost::char_separator<char>(",\n"));
 	    tokenizer::iterator it = tokens.begin();
+
+	    if (it != tokens.end()) {
+	    	data->m_trace = *it;
+	        ++it;
+	    } else {
+	    	assert(false);
+	    }
 
 	    if (it != tokens.end()) {
 	    	sample_problem_dir = *it;
@@ -67,7 +76,6 @@ bool ProblemDB::populate_db() {
 	    } else {
 	    	assert(false);
 	    }
-
 
 	    if (it != tokens.end()) {
 	       	data->m_fast_plan_dir = *it;
@@ -161,10 +169,14 @@ bool ProblemDB::populate_db() {
 	    }
 
 	    if (it != tokens.end()) {
-	    	while (it != tokens.end()) {
+	    	unsigned index = 0;
+
+
+	    	while (index < GlobalSettings::getInstance()->get_time_series_length()) {
 		       	//cout << "workload = " << *it << endl;
 	    		(data->m_work_load).push_back(atof((*it).c_str()));
 	        	++it;
+	        	++index;
 	    	}
 
 	    	assert((data->m_work_load).size() == GlobalSettings::getInstance()->get_time_series_length());
