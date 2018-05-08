@@ -13,6 +13,8 @@
 #include <fstream>
 #include <Utils.h>
 #include <assert.h>
+#include <Log.h>
+#include <ProblemDB.h>
 
 SpecGenerator::SpecGenerator(const string& dir): m_sample_problem_dir(dir) {
 
@@ -74,43 +76,50 @@ bool SpecGenerator::write_flags(ofstream& fout, const Strings& actions) const {
 		fout << "const bool asC = false;" << endl;
 	}
 
-
-	if (find_string_in_strings("progressA", actions)) {
+	// TODO next 6 check are hard coded for values 1 and 2.
+	// 1 means server boot up is in process and 2 means server boot up is complete
+	if (find_string_in_strings("progressA", actions)
+			|| ProblemDB::getInstance()->get_serverA_status(m_sample_problem_dir) == 1) {
 		fout << "const bool psA = true;" << endl;
 		pass_add_server = false;
 	} else {
 		fout << "const bool psA = false;" << endl;
 	}
 
-	if (find_string_in_strings("progressB", actions)) {
+	if (find_string_in_strings("progressB", actions)
+			|| ProblemDB::getInstance()->get_serverB_status(m_sample_problem_dir) == 1) {
 		fout << "const bool psB = true;" << endl;
 		pass_add_server = false;
 	} else {
 		fout << "const bool psB = false;" << endl;
 	}
 
-	if (find_string_in_strings("progressC", actions)) {
+	if (find_string_in_strings("progressC", actions)
+			|| ProblemDB::getInstance()->get_serverC_status(m_sample_problem_dir) == 1) {
 		fout << "const bool psC = true;" << endl;
 		pass_add_server = false;
 	} else {
 		fout << "const bool psC = false;" << endl;
 	}
 
-	if (find_string_in_strings("addServerA_complete", actions)) {
+	if (find_string_in_strings("addServerA_complete", actions)
+			|| ProblemDB::getInstance()->get_serverA_status(m_sample_problem_dir) == 2) {
 		fout << "const bool asAc = true;" << endl;
 		pass_add_server = false;
 	} else {
 		fout << "const bool asAc = false;" << endl;
 	}
 
-	if (find_string_in_strings("addServerB_complete", actions)) {
+	if (find_string_in_strings("addServerB_complete", actions)
+			|| ProblemDB::getInstance()->get_serverB_status(m_sample_problem_dir) == 2) {
 		fout << "const bool asBc = true;" << endl;
 		pass_add_server = false;
 	} else {
 		fout << "const bool asBc = false;" << endl;
 	}
 
-	if (find_string_in_strings("addServerC_complete", actions)) {
+	if (find_string_in_strings("addServerC_complete", actions)
+			|| ProblemDB::getInstance()->get_serverB_status(m_sample_problem_dir) == 2) {
 		fout << "const bool asCc = true;" << endl;
 		pass_add_server = false;
 	} else {
@@ -204,6 +213,15 @@ bool SpecGenerator::fix_reactive_actions(ofstream& fout, const bool& no_action) 
 		// Get reactive actions.
 		ReactivePlanExtraction reactivePlanExtraction(m_sample_problem_dir);
 		actions = reactivePlanExtraction.get_tactics_at_time();
+		Log::getInstance()->write("Fast actions are: ");
+		Strings::iterator it = actions.begin();
+
+		while (it != actions.end()) {
+			Log::getInstance()->write(*it);
+			++it;
+		}
+
+		//Log::getInstance()->write("\n");
 	}
 
 	result = write_flags(fout, actions);

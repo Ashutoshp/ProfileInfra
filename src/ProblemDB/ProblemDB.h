@@ -58,6 +58,9 @@ public:
 	void get_sample_problem_dirs(Strings& problems) const;
 
 	inline string get_header() const {return m_header;}
+	unsigned get_serverA_status(const string& problem_dir) const;
+	unsigned get_serverB_status(const string& problem_dir) const;
+	unsigned get_serverC_status(const string& problem_dir) const;
 
 	bool populate_db();
 	void clean_db();

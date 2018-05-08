@@ -160,7 +160,13 @@ int main() {
 			double hybrid_result = get_result_from_file(hybrid_result_file);
 			double deliberative_result = get_result_from_file(delieberative_result_file);
 
-			bool use_reactive = (hybrid_result > deliberative_result) ? 1 : 0;
+			unsigned use_reactive = 0;
+
+			if (hybrid_result > deliberative_result) {
+				use_reactive = 1;
+			} else if (hybrid_result == deliberative_result) {
+				use_reactive = 2;
+			}
 
 			//const vector<float>time_series = ProblemDB::getInstance()->get_time_series(*iter);
 			const ProblemDB::ProblemData* data = ProblemDB::getInstance()->get_problem_data(*iter);

@@ -34,7 +34,7 @@ void DBWriter::write_header(const string& header) const {
 	*m_foutP << header << '\n';
 }
 
-void DBWriter::write_line(const string sample_problem_path, const ProblemDB::ProblemData* data, bool use_reactive) const {
+void DBWriter::write_line(const string sample_problem_path, const ProblemDB::ProblemData* data, unsigned use_reactive) const {
 	assert(m_foutP != NULL);
 
 	*m_foutP << data->m_trace << ",";

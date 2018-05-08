@@ -238,6 +238,27 @@ ProblemDB::TimeSeries ProblemDB::get_time_series(const string& problem_dir) cons
 	return itr->second->m_work_load;
 }
 
+unsigned ProblemDB::get_serverA_status(const string& problem_dir) const {
+	Database::const_iterator itr = m_sample_problem_db.find(problem_dir);
+	assert(itr != m_sample_problem_db.end());
+
+	return itr->second->m_server_A_status;
+}
+
+unsigned ProblemDB::get_serverB_status(const string& problem_dir) const {
+	Database::const_iterator itr = m_sample_problem_db.find(problem_dir);
+	assert(itr != m_sample_problem_db.end());
+
+	return itr->second->m_server_B_status;
+}
+
+unsigned ProblemDB::get_serverC_status(const string& problem_dir) const {
+	Database::const_iterator itr = m_sample_problem_db.find(problem_dir);
+	assert(itr != m_sample_problem_db.end());
+
+	return itr->second->m_server_C_status;
+}
+
 const ProblemDB::ProblemData* ProblemDB::get_problem_data(const string& problem_dir) const {
 	Database::const_iterator itr = m_sample_problem_db.find(problem_dir);
 	assert(itr != m_sample_problem_db.end());
