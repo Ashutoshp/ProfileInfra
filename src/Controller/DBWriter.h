@@ -48,6 +48,7 @@ class DBWriter {
 		//void clean_db();
 	DBWriter(const string& file_name);
 	void close_writer();
+	void open_writer();
 	~DBWriter();
 	void write_header(const string& header) const;
 	void write_line(const string sample_problem_path,

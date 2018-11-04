@@ -26,6 +26,10 @@ void DBWriter::close_writer() {
 	m_foutP->close();
 }
 
+void DBWriter::open_writer() {
+	m_foutP->open(m_file_name.c_str(), std::ios_base::app);
+}
+
 DBWriter::~DBWriter() {
 	if (m_foutP != NULL) delete m_foutP;
 }

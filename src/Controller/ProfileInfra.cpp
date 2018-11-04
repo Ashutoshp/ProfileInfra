@@ -136,6 +136,17 @@ int main() {
 			++iter;
 		}
 
+		// open a new csv file
+		DBWriter db_writer = DBWriter(GlobalSettings::getInstance()->get_output_db_file());
+
+		if (GlobalSettings::getInstance()->get_project_name() == GlobalSettings::Project::CLOUD) {
+			db_writer.write_header(ProblemDB::getInstance()->get_header());
+		} else {
+			db_writer.write_header(DartProblemDB::getInstance()->get_header());
+		}
+
+		db_writer.close_writer();
+
 		// Do model-checking for the given location
 		// Intentionally separated out the specification generation and model-checking
 		iter = input_dirs.begin();
@@ -172,23 +183,6 @@ int main() {
 			invoke_prism->run_prism();
 			delete invoke_prism;
 
-			++iter;
-		}
-
-		// open a new csv file
-		DBWriter db_writer = DBWriter(GlobalSettings::getInstance()->get_output_db_file());
-
-		if (GlobalSettings::getInstance()->get_project_name() == GlobalSettings::Project::CLOUD) {
-			db_writer.write_header(ProblemDB::getInstance()->get_header());
-		} else {
-			db_writer.write_header(DartProblemDB::getInstance()->get_header());
-		}
-
-		// Read result file from each location.
-		// input dirs iterate
-		iter = input_dirs.begin();
-
-		while (iter != input_dirs.end()) {
 			string hybrid_result_file = GlobalSettings::getInstance()->get_hybrid_result_path(*iter);
 			string delieberative_result_file = GlobalSettings::getInstance()->get_deliberative_only_result_path(*iter);
 
@@ -202,6 +196,8 @@ int main() {
 			} else if (hybrid_result == deliberative_result) {
 				use_reactive = 2;
 			}
+
+			db_writer.open_writer();
 
 			//const vector<float>time_series = ProblemDB::getInstance()->get_time_series(*iter);
 			if (GlobalSettings::getInstance()->get_project_name() == GlobalSettings::Project::CLOUD) {
@@ -224,15 +220,27 @@ int main() {
 				db_writer.write_line(*iter, data, use_reactive);
 			}
 
+			db_writer.close_writer();
+
 			++iter;
 		}
+
+		// Read result file from each location.
+		// input dirs iterate
+		/*iter = input_dirs.begin();
+
+		while (iter != input_dirs.end()) {
+
+
+			++iter;
+		}*/
 
 		// read hybrid and slow result file
 		// write to csv file
 		// close the csv file
 
 		// Write result to database i.e., features, Yes/No
-		db_writer.close_writer();
+		//db_writer.close_writer();
 
 		if (GlobalSettings::getInstance()->get_project_name() == GlobalSettings::Project::CLOUD) {
 			ProblemDB::getInstance()->clean_db();
