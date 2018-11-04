@@ -63,3 +63,33 @@ void DBWriter::write_line(const string sample_problem_path, const ProblemDB::Pro
 
 	*m_foutP << use_reactive << endl;
 }
+
+// altitude	 formation	 ecm	 incAlt_state	 decAlt_state
+		//incAlt2_state	 decAlt2_state
+
+void DBWriter::write_line(const string sample_problem_path, const DartProblemDB::ProblemData* data, unsigned use_reactive) const {
+	assert(m_foutP != NULL);
+
+	*m_foutP << data->m_seed << ",";
+	*m_foutP << sample_problem_path << ",";
+	*m_foutP << data->m_altitude << ",";
+	*m_foutP << data->m_formation << ",";
+	*m_foutP << data->m_ecm << ",";
+	*m_foutP << data->m_incAlt_state << ",";
+	*m_foutP << data->m_decAlt_state << ",";
+	*m_foutP << data->m_incAlt2_state << ",";
+	*m_foutP << data->m_decAlt2_state << ",";
+
+	assert(data->m_threats.size() == data->m_targets.size());
+	Threats::const_iterator itr_threats = data->m_threats.begin();
+	Threats::const_iterator itr_targets = data->m_threats.begin();
+
+	while (itr_threats != data->m_threats.end()) {
+		*m_foutP << *itr_threats << ",";
+		*m_foutP << *itr_targets << ",";
+		++itr_threats;
+		++itr_targets;
+	}
+
+	*m_foutP << use_reactive << endl;
+}

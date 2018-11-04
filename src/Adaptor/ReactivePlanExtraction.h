@@ -28,6 +28,7 @@ private:
 	const string m_pass_prefix;
 	const string m_complete_suffix;
 	const string m_progress_prefix;
+	const string m_invalid_suffix;
 
 	/**
 	 * Finds the actions that take place in the given states

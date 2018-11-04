@@ -171,7 +171,6 @@ bool ProblemDB::populate_db() {
 	    if (it != tokens.end()) {
 	    	unsigned index = 0;
 
-
 	    	while (index < GlobalSettings::getInstance()->get_time_series_length()) {
 		       	//cout << "workload = " << *it << endl;
 	    		(data->m_work_load).push_back(atof((*it).c_str()));

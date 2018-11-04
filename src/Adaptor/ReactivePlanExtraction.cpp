@@ -19,7 +19,10 @@ ReactivePlanExtraction::ReactivePlanExtraction(const string& dir_path) :
 	m_divert_str("divert_"),
 	m_pass_prefix("pass_"),
 	m_complete_suffix("_complete"),
-	m_progress_prefix("progress") {}
+	m_progress_prefix("progress"),
+	m_invalid_suffix("_invalid") {}
+
+// DART add invalid
 
 Strings ReactivePlanExtraction::get_tactics_at_time(const string& time) const {
 	// TODO expand it for database. CUSTOMIZED
@@ -56,7 +59,9 @@ set<int> ReactivePlanExtraction::get_now_states() const {
 	ifstream fin(GlobalSettings::getInstance()->get_reactive_planning_states_path(m_dir_path).c_str());
 
 	if (!fin) {
-		cout << "Could not read input file " << GlobalSettings::getInstance()->get_reactive_planning_states_path(m_dir_path) << endl;
+		cout << "Could not read input file "
+				<< GlobalSettings::getInstance()->get_reactive_planning_states_path(m_dir_path)
+				<< endl;
 		return states;
 	}
 
@@ -147,7 +152,7 @@ Strings ReactivePlanExtraction::get_actions(const set<int>& states) const {
 				if (++it != tokens.end()) { // has action
 					size_t action_length = it->length();
 					//cout << "action ### " << *it << endl;
-					if (*it != "tick" && *it != "tack") {
+					if (*it != "tick" && *it != "tack" && *it != "tick2") {
 						row.action = *it;
 					}
 					/*if (action_length > suffix_length || action_length > divert_prefix_len

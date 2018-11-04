@@ -14,6 +14,7 @@
 #include <vector>
 #include <fstream>
 #include <ProblemDB.h>
+#include <DartProblemDB.h>
 
 //#include <map>
 //#include <GlobalSettings.h>
@@ -30,6 +31,8 @@ class DBWriter {
 
 		//struct ProblemData {
 		typedef vector<float> TimeSeries;
+		typedef vector<string> Threats;
+		typedef vector<string> Targets;
 
 		//	string fast_plan_dir;
 		//	string slow_plan_dir;
@@ -49,6 +52,8 @@ class DBWriter {
 	void write_header(const string& header) const;
 	void write_line(const string sample_problem_path,
 			const ProblemDB::ProblemData* data, unsigned use_reactive) const;
+	void write_line(const string sample_problem_path,
+				const DartProblemDB::ProblemData* data, unsigned use_reactive) const;
 };
 
 

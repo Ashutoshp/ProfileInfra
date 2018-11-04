@@ -15,6 +15,13 @@ using namespace std;
 
 class GlobalSettings
 {
+
+public:
+    typedef enum ProjectEnum {
+    	CLOUD,
+		DART
+    } Project;
+
 private:
         /* Here will be the instance stored. */
         static GlobalSettings* m_instance;
@@ -61,6 +68,7 @@ private:
         // This should be inside m_destination_directory
         string m_destination_deliberative_dir;
 
+        // Dart
         // Template file to generate model-checker specification
         string m_template_path;
 
@@ -79,10 +87,12 @@ private:
         // This will be inside m_destination_hybrid_dir and m_destination_deliberative_dir
         string m_result_file;
 
+        // Dart
         // File containing model-checking specification for hybrid plan.
         // This will be inside m_destination_hybrid_dir and m_destination_deliberative_dir
         string m_model_checker_hybrid_spec_file;
 
+        // Dart
         // File containing model-checking specification for hybrid plan.
         // This will be inside m_destination_hybrid_dir and m_destination_deliberative_dir
         string m_model_checker_spec_file;
@@ -91,11 +101,13 @@ private:
         // This should be inside m_source_directory/m_directory_prefix* directory
         string m_problem_feature_file;
 
+        // Dart
         string m_prism_spec_env_end_tag;
 
         // Stores information about sample problems created from simulation
         string m_features_csv_file;
 
+		// Dart
         // Length of time series
         unsigned m_time_series_length;
 
@@ -104,11 +116,16 @@ private:
 
         string m_log_file;
 
+        Project m_project_name;
+
+        unsigned m_dart_env_length;
 
         /* Private constructor to prevent instancing. */
         GlobalSettings();
 
     public:
+
+
         /* Static access method. */
         static GlobalSettings* getInstance();
 
@@ -145,6 +162,7 @@ private:
         inline string get_destination_deliberative_dir() const {return m_destination_deliberative_dir;}
         inline void set_destination_deliberative_dir(const string& dir) {m_destination_deliberative_dir = dir;}
 
+		// Dart
         inline string get_template_path() const {return m_template_path;}
         inline void set_template_path(const string& path) {m_template_path = path;}
 
@@ -166,6 +184,7 @@ private:
         inline string get_problem_feature_file() const {return m_problem_feature_file;}
         inline void set_problem_feature_file(const string& file) {m_problem_feature_file = file;}
 
+        // Dart
         inline string get_env_tag() const {return m_prism_spec_env_end_tag;}
         inline void set_env_tag(const string& file) {m_prism_spec_env_end_tag = file;}
 
@@ -222,6 +241,7 @@ private:
         inline void set_features_file(const string& file) {m_features_csv_file = file;}
         inline string get_features_file() const {return m_features_csv_file;}
 
+        // Dart
         inline void set_time_series_length(const unsigned length) {m_time_series_length = length;}
 		inline unsigned get_time_series_length() const {return m_time_series_length;}
 
@@ -230,6 +250,12 @@ private:
 
         inline void set_log_file(const string& file) {m_log_file = file;}
         inline string get_log_file() const {return m_log_file;}
+
+        inline void set_project_name(const Project& project) {m_project_name = project;}
+        inline Project get_project_name() const {return m_project_name;}
+
+        inline void set_dart_env_length(const unsigned& length) {m_dart_env_length = length;}
+        inline unsigned get_dart_env_length() const {return m_dart_env_length;}
 
         void debug();
 };

@@ -37,4 +37,19 @@ typedef enum TacticEnum {
     DIVERT_TRAFFIC_0_50_50
 } Action;
 
+typedef enum DartTactics {
+	//NONE,
+	TACK,
+	//TICK,
+	TICK2,
+	ECMON_START,
+	ECMOFF_START,
+	GOTIGHT_START,
+	GOLOOSE_START,
+	INCALT_COMPLETE,
+	INCALT2_COMPLETE,
+	DECALT_COMPLETE,
+	DECALT2_COMPLETE
+} DartAction;
+
 #endif /* ADAPTOR_TACTICS_H_ */
